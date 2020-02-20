@@ -7,8 +7,7 @@ function App() {
       <header className="App-header">
         <a
           className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
+          href="https://github.com/catc/travis-github-pages-example"
           rel="noopener noreferrer"
         >
           auto built github pages by travis :)
