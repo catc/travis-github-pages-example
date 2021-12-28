@@ -47,7 +47,7 @@ jobs:
     name: build github pages
     runs-on: ubuntu-latest
     concurrency:
-      group: ${{ github.workflow }}-${{ github.ref }
+      group: ${{ github.workflow }}-${{ github.ref }}
     needs: test
     if: ${{ github.ref_name == 'master' }}
     steps:
