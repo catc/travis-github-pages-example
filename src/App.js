@@ -10,7 +10,7 @@ function App() {
           href="https://github.com/catc/travis-github-pages-example"
           rel="noopener noreferrer"
         >
-          auto built github pages by travis :)
+          auto built github pages by github actions :)
         </a>
       </header>
     </div>
