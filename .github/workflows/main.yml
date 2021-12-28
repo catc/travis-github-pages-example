@@ -62,7 +62,7 @@ jobs:
           node-version: '12.22.8'
           
       - run: yarn install
-      - run: npm run build
+      - run: PUBLIC_URL=./ npm run build
 
 #       - name: Get yarn cache
 #         id: yarn-cache
