@@ -46,12 +46,46 @@ jobs:
   build-gh-pages:
     name: build github pages
     runs-on: ubuntu-latest
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.ref }
     needs: test
-#     if: 
+    if: GITHUB_REF_NAME=master
     steps:
       - uses: actions/checkout@v2
       - name: echo env
         run: env
-#       - uses: actions/setup-node@v2
+        
+#       validate from here on
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: '12.22.8'
+          
+      - run: yarn install
+      - run: npm run build
+
+#       - name: Get yarn cache
+#         id: yarn-cache
+#         run: echo "::set-output name=dir::$(yarn cache dir)"
+
+#       - name: Cache dependencies
+#         uses: actions/cache@v2
 #         with:
-#           node-version: '12.22.8'
+#           path: ${{ steps.yarn-cache.outputs.dir }}
+#           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+#           restore-keys: |
+#             ${{ runner.os }}-yarn-
+
+#       - run: yarn install --frozen-lockfile
+#       - run: yarn build
+#       - run: yarn export
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        if: ${{ github.ref == 'refs/heads/master' }}
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./build
+          publish_branch: gh-pages
+#       - run: echo "all done"
+      
