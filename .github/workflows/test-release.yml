@@ -3,11 +3,6 @@ name: Publish release
 on:
   push:
     branches: [ master ]
-  # workflow_dispatch:
-  #   inputs:
-  #     version:
-  #       description: 'Version to publish'
-  #       required: true
 
 jobs:
   npm-publish:
@@ -25,4 +20,6 @@ jobs:
 
       - name: publish to npm
         if: steps.check.outputs.changed == 'true'
-        run: echo "would publish to npm"
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_ACCESS_TOKEN }}
+        run: npm publish --dry-run
