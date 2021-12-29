@@ -10,7 +10,7 @@ on:
   #       required: true
 
 jobs:
-  test:
+  npm-publish:
     name: publish to npm
     runs-on: ubuntu-latest
     steps:
@@ -19,10 +19,10 @@ jobs:
         with:
           node-version: '12.22.8'
 
-    - name: Check if version has been updated
-      id: check
-      uses: EndBug/version-check@v1
+      - name: Check if version has been updated
+        id: check
+        uses: EndBug/version-check@v1
 
-    - name: publish to npm
-      if: steps.check.outputs.changed == 'true'
-      run: echo "would publish to npm"
+      - name: publish to npm
+        if: steps.check.outputs.changed == 'true'
+        run: echo "would publish to npm"
